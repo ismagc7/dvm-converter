@@ -1,0 +1,24 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+dvm-cliente/node_modules
+dvm-server/node_modules
+dvm-cliente/.pnp
+dvm-cliente/.pnp.js
+
+# testing
+dvm-cliente/coverage
+
+# production
+dvm-cliente/build
+
+# misc
+dvm-cliente/.DS_Store
+dvm-cliente/.env.local
+dvm-cliente/.env.development.local
+dvm-cliente/.env.test.local
+.env.production.local
+
+dvm-cliente/npm-debug.log*
+dvm-cliente/yarn-debug.log*
+dvm-cliente/xyarn-error.log*
