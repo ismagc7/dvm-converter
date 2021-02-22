@@ -1,29 +1,28 @@
-/*----------------------------------------------------------------------/
-/   Autor: Ismael Gutierrez Casao
-/   Descripción: Este programa recoge un archivo y lo convierte en un
-/                archivo DVM.
-/
-/
-/
-/*----------------------------------------------------------------------*/
+const express = require('express')
+const funciones = require('./utils');
+const fileUpload = require('express-fileupload')
 
-var readline = require('readline');
-const funciones = require('./functions');
+const app = express();
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+app.use(fileUpload())
 
-rl.question('¿Qué archivo quieres leer ? ', function (respuesta) {
-    
+  app.post('/',(req,res)=>{
+    let EDFile = req.files.text
+    let file = EDFile.name.split('.')
+    let nombre = `./uploads/${file[0]}-${Date.now()}.${file[1]}`
 
-            console.log("\n");
-            funciones.leer_archivo(respuesta);
-            console.log("\n");
+    EDFile.mv(nombre,error =>{
+      if (error){
+        console.log("El archivo no ha podido subirse")
+      }
+      else{
+        funciones.readFile(`${nombre}`,req.body.descripcion,req.body.name)
+        return res.status(200).send('file uploaded')
+      }
+    })
+  })
 
-    rl.close();
-  });
-
-
+app.listen('7000',()=>{
+    console.log("Conected");
+})
 
