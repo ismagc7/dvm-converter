@@ -7,7 +7,7 @@ const app = express();
 app.use(fileUpload())
 
   app.post('/',(req,res)=>{
-    let EDFile = req.files.text
+    let EDFile = req.files.file
     let file = EDFile.name.split('.')
     let nombre = `./uploads/${file[0]}-${Date.now()}.${file[1]}`
 
@@ -16,7 +16,8 @@ app.use(fileUpload())
         console.log("El archivo no ha podido subirse")
       }
       else{
-        funciones.readFile(`${nombre}`,req.body.descripcion,req.body.name)
+        console.log(req.body.name)
+        funciones.readFile(`${nombre}`,req.body.description,req.body.name)
         return res.status(200).send('file uploaded')
       }
     })
